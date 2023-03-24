@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static java.rmi.server.LogStream.log;
+
 @Service @RequiredArgsConstructor @Transactional @Slf4j
 public class UserServiceImpl implements UserService{
     private final UserRepo userRepo;
@@ -18,16 +20,19 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User saveUser(User user) {
+        log.info("Saving User to the database");
         return userRepo.save(user);
     }
 
     @Override
     public Role saveRole(Role role) {
+        log.info("Saving new role {} to the database" , role.getName());
         return roleRepo.save(role);
     }
 
     @Override
     public void addRoleToUser(String username, String roleName) {
+        log.info("Adding role {} to user {}" , username, roleName);
         User user = userRepo.findByUsername(username);
         Role role = roleRepo.findByName(roleName);
         user.getRoles().add(role);
@@ -35,11 +40,13 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User getUser(String username) {
+        log.info("Fetching use {}",username);
         return userRepo.findByUsername(username);
     }
 
     @Override
     public List<User> getUsers() {
+        log.info("Fetching all users");
         return userRepo.findAll();
     }
 }
