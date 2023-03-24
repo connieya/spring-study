@@ -1,5 +1,6 @@
 package study.querydsl.repository;
 
+import com.querydsl.core.types.dsl.Expressions;
 import jakarta.persistence.EntityManager;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import study.querydsl.dto.MemberSearchCondition;
 import study.querydsl.dto.MemberTeamDto;
 import study.querydsl.entity.Member;
+import study.querydsl.entity.QMember;
 import study.querydsl.entity.Team;
 
 import java.util.List;
@@ -65,5 +67,11 @@ public class MemberRepositoryTest {
 
         List<MemberTeamDto> result = memberRepository.search(condition);
         assertThat(result).extracting("username").containsExactly("member4");
+    }
+
+    @Test
+    public void querydslPredicateExecutorTest() {
+        Expressions.constant(1);
+        memberRepository.findAll(QMember.member.age.between(20,40).and(QMember.member.username.eq("member1"));
     }
 }
