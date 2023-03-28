@@ -14,16 +14,19 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
-            Member member = em.find(Member.class, 1L);
-            System.out.println("member = " + member);
+            Team team = new Team();
+            team.setName("레알마드리드");
+            em.persist(team);
+            Member member = new Member();
             member.setName("건희");
+            member.setTeam(team);
+            em.persist(member);
             tx.commit();
         }catch (Exception e) {
             tx.rollback();
         }finally {
             em.close();;
         }
-
         emf.close();
     }
 }
