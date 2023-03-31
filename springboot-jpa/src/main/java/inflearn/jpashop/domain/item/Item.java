@@ -1,6 +1,7 @@
 package inflearn.jpashop.domain.item;
 
 import inflearn.jpashop.domain.Category;
+import inflearn.jpashop.exception.NotEnoughStockException;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,4 +27,15 @@ public abstract class Item {
 
     @ManyToMany(mappedBy = "items")
     private List<Category> categories = new ArrayList<>();
+
+    public void addStock(int quantity){
+        this.stockQuantity += quantity;
+    }
+
+    public void removeStock(int quantity){
+        if (this.stockQuantity-quantity < 0){
+            throw new NotEnoughStockException("need more stock");
+        }
+        this.stockQuantity -= quantity;
+    }
 }
