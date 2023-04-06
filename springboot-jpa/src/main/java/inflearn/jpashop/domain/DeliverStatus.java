@@ -1,5 +1,5 @@
 package inflearn.jpashop.domain;
 
 public enum DeliverStatus {
-    COMP
+    READY , COMP
 }

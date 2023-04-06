@@ -1,5 +1,6 @@
 package inflearn.jpashop.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
@@ -23,6 +24,7 @@ public class Member {
     @Embedded
     private Address address;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "member") // 연관관계의 주인이 아니다.
     private List<Order> orders = new ArrayList<>();
 }
