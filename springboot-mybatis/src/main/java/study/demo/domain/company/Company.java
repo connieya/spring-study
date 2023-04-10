@@ -5,6 +5,7 @@ import study.demo.domain.employee.Employee;
 
 import java.util.List;
 
+@Data
 public class Company {
     private int id;
     private String name;
