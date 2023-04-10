@@ -1,11 +1,15 @@
-package study.demo.domain;
+package study.demo.domain.company;
 
 import lombok.Data;
+import study.demo.domain.employee.Employee;
+
+import java.util.List;
 
 public class Company {
     private int id;
     private String name;
     private String address;
+    private List<Employee> employeeList;
 
     public int getId() {
         return id;

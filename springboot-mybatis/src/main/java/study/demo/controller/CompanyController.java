@@ -3,8 +3,8 @@ package study.demo.controller;
 import jakarta.annotation.Resource;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.*;
-import study.demo.domain.Company;
-import study.demo.domain.CompanyMapper;
+import study.demo.domain.company.Company;
+import study.demo.domain.company.CompanyMapper;
 
 import java.util.List;
 
@@ -17,12 +17,17 @@ public class CompanyController {
     private CompanyMapper companyMapper;
 
     @PostMapping("")
-    public int post(@RequestBody Company company){
-        return companyMapper.insert(company);
+    public Company post(@RequestBody Company company){
+        companyMapper.insert(company);
+        return company;
     }
 
     @GetMapping("")
     public List<Company> getAll() {
         return companyMapper.getAll();
+    }
+    @GetMapping("/{id}")
+    public Company getById(@PathVariable("id") int id){
+        return companyMapper.getById(id);
     }
 }
