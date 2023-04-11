@@ -16,6 +16,10 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
+	<context:component-scan
+		base-package="in.b2tech" />
+	<mvc:annotation-driven />
+
 
 	<beans:bean id="jspViewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
