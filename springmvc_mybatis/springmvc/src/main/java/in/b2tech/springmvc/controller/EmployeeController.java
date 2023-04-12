@@ -32,13 +32,28 @@ public class EmployeeController {
 	
 	@RequestMapping("/saveProcess")
 	public String saveProcess(@ModelAttribute("employee") Employee employee) {
-		mapper.saveEmployee(employee);
+		if(employee.getId() == null) {
+			mapper.saveEmployee(employee);
+		}else {
+			mapper.updateEmployee(employee);
+		}
+		
 		return "redirect:/";
 	}
 	
-	@RequestMapping("/employee/displayDeleteForm")
+	@RequestMapping("/displayDeleteForm")
 	public String deleteEmployee(@RequestParam("employeeId") int employeeId) {
 		mapper.deleteEmployee(employeeId);
 		return "redirect:/";
 	}
+	
+	@RequestMapping("/displayUpdateForm")
+	public ModelAndView editEmployee(@RequestParam("employeeId") int employeeId) {
+		ModelAndView mav = new ModelAndView("add-employee");
+		Employee employee =  mapper.findById(employeeId);
+		mav.addObject("employee", employee);
+		return mav;
+	}
+	
+	
 }

@@ -33,11 +33,11 @@
 				</tr>
 			</thead>
 			<c:forEach items="${employeeList}" var="e">
-				<c:url var="updateLink" value="/employee/displayUpdateForm.html">
+				<c:url var="updateLink" value="/displayUpdateForm.html">
 					<c:param name="employeeId" value="${e.id}" />
 				</c:url>
 
-				<c:url var="deleteLink" value="/employee/displayDeleteForm.html">
+				<c:url var="deleteLink" value="/displayDeleteForm.html">
 					<c:param name="employeeId" value="${e.id}" />
 				</c:url>
 				<tbody>

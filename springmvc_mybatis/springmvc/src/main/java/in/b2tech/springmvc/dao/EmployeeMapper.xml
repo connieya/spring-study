@@ -17,20 +17,40 @@
 		<result property="address" column="address" />
 	</resultMap>
 
-	<select id="getAllEmployees" resultType="employee" resultMap="result">
+	<select id="getAllEmployees" resultType="employee"
+		resultMap="result">
 
 		SELECT * from employee
 
 	</select>
-	
-	<insert id="insertEmployee" parameterType="employee" keyProperty="id" useGeneratedKeys="true">
-	 
-	 insert into employee(fullname , email , gender , hobbies , country , address)
-	 values(#{fullname} , #{email} , #{gender} ,#{hobbies} , #{country} , #{address} )
+
+	<insert id="insertEmployee" parameterType="employee"
+		keyProperty="id" useGeneratedKeys="true">
+
+		insert into employee(fullname , email , gender , hobbies , country ,
+		address)
+		values(#{fullname} , #{email} , #{gender} ,#{hobbies} , #{country} , #{address} )
 	</insert>
-	
+
 	<delete id="deleteEmployee" parameterType="int">
-		delete from employee where id = #{employeeId}
+		delete from employee
+		where id = #{employeeId}
 	</delete>
+
+	<select id="findById" parameterType="int" resultType="employee"
+		resultMap="result">
+
+		select * from employee where id = #{employeeId}
+
+	</select>
+
+	<update id="updateEmployee" parameterType="employee">
+
+		UPDATE employee SET fullname = #{fullname}, email = #{email}, gender =
+		#{gender}, hobbies = #{hobbies}, country = #{country}, address =
+		#{address}
+		WHERE id = #{id}
+
+	</update>
 
 </mapper>
