@@ -16,7 +16,7 @@
 		<h1>Employee Details</h1>
 		<p align="right">
 			<button
-				onclick="window.location.href = 'showFormForAdd.html'; return false;"
+				onclick="window.location.href = 'showFormForAddEmplotyee.html'; return false;"
 				class="btn btn-primary">Add Employee</button>
 		</p>
 		<hr />
