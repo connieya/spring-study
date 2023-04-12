@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="in.b2tech.springmvc.dao.EmployeeMapper">
+
+
+	<resultMap type="employee" id="result">
+
+		<id property="id" column="id" />
+		<result property="fullname" column="fullname" />
+		<result property="email" column="email" />
+		<result property="gender" column="gender" />
+		<result property="hobbies" column="hobbies" />
+		<result property="country" column="country" />
+		<result property="address" column="address" />
+	</resultMap>
+
+	<select id="getAllEmployees" resultType="employee" resultMap="result">
+
+		SELECT * from employee
+
+	</select>
+	
+	<insert id="insertEmployee" parameterType="employee" keyProperty="id" useGeneratedKeys="true">
+	 
+	 insert into employee(fullname , email , gender , hobbies , country , address)
+	 values(#{fullname} , #{email} , #{gender} ,#{hobbies} , #{country} , #{address} )
+	</insert>
+
+</mapper>
