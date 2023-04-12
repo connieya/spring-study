@@ -28,5 +28,9 @@
 	 insert into employee(fullname , email , gender , hobbies , country , address)
 	 values(#{fullname} , #{email} , #{gender} ,#{hobbies} , #{country} , #{address} )
 	</insert>
+	
+	<delete id="deleteEmployee" parameterType="int">
+		delete from employee where id = #{employeeId}
+	</delete>
 
 </mapper>
