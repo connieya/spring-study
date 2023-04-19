@@ -2,6 +2,7 @@ package study.demo.domain.company;
 
 
 import org.apache.ibatis.annotations.*;
+import study.demo.domain.employee.Employee;
 
 import java.util.List;
 
@@ -15,12 +16,19 @@ public interface CompanyMapper {
     @Select("select * from company")
     @Results(id="CompanyMap", value = {
             @Result(property = "name", column = "company_name"),
-            @Result(property = "address", column = "company_address")
+            @Result(property = "address", column = "company_address"),
+            @Result(property = "employeeList",column = "id" , many = @Many(select="study.demo.domain.company.CompanyMapper.getByCompanyId"))
     })
     List<Company> getAll();
 
     @Select("select * from company where id=#{id}")
     @ResultMap("CompanyMap")
     Company getById(@Param("id") int id);
+
+
+    @Select("select * from employee where company_id = #{companyId}")
+    @ResultMap("EmployeeMap")
+    List<Employee> getByCompanyId(@Param("companyId") int companyId);
+
 
 }

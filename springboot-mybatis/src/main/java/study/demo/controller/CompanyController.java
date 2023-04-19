@@ -1,10 +1,12 @@
 package study.demo.controller;
 
 import jakarta.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.*;
 import study.demo.domain.company.Company;
 import study.demo.domain.company.CompanyMapper;
+import study.demo.service.CompanyService;
 
 import java.util.List;
 
@@ -16,9 +18,13 @@ public class CompanyController {
     @Resource
     private CompanyMapper companyMapper;
 
+    @Autowired
+    private CompanyService companyService;
+
     @PostMapping("")
-    public Company post(@RequestBody Company company){
-        companyMapper.insert(company);
+    public Company post(@RequestBody Company company) throws Exception {
+//        companyMapper.insert(company);
+        companyService.add(company);
         return company;
     }
 

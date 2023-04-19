@@ -22,5 +22,4 @@ public interface EmployeeMapper {
     @Select("select * from employee where id=#{id}")
     @ResultMap("EmployeeMap")
     Employee getById(@Param("id") int id);
-
 }
