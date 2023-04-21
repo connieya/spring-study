@@ -3,14 +3,18 @@ package hello.itemservice.web.basic;
 import hello.itemservice.domain.item.Item;
 import hello.itemservice.domain.item.ItemRepository;
 import jakarta.annotation.PostConstruct;
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Controller
 @RequestMapping("/basic/items")
 public class BasicItemController {
@@ -44,7 +48,8 @@ public class BasicItemController {
     }
 
     @GetMapping("/add")
-    public String addForm() {
+    public String addForm(Model model) {
+        model.addAttribute("item", new Item());
         return "basic/addForm";
     }
 
@@ -94,6 +99,7 @@ public class BasicItemController {
 
     @PostMapping("/add")
     public String addItemV6(Item item , RedirectAttributes redirectAttributes) {
+        log.info("item.open= {}", item.getOpen());
         Item savedItem = itemRepository.save(item);
         redirectAttributes.addAttribute("itemId",savedItem.getId());
         redirectAttributes.addAttribute("status",true);
@@ -112,6 +118,49 @@ public class BasicItemController {
     public String edit(@PathVariable Long itemId, @ModelAttribute Item item) {
         itemRepository.update(itemId,item);
         return "redirect:/basic/items/{itemId}";
+    }
+
+    @GetMapping("/literal")
+    public String literal(Model model){
+        model.addAttribute("data", "Spring!");
+        return "basic/literal";
+    }
+
+    @GetMapping("/operation")
+    public String operation(Model model) {
+        model.addAttribute("nullData",null);
+        model.addAttribute("data","Spring !");
+        return "basic/operation";
+    }
+
+    @GetMapping("/attribute")
+    public String attribute() {
+        return "basic/attribute";
+    }
+
+    @GetMapping("/each")
+    public String each(Model model){
+        addUsers(model);
+        return "/basic/each";
+    }
+
+    private void addUsers(Model model) {
+        List<User> list =  new ArrayList<>();
+        list.add(new User("UserA",10));
+        list.add(new User("UserB",20));
+        list.add(new User("UserC",30));
+        model.addAttribute("users",list);
+    }
+
+    @Data
+    static class User {
+        private String username;
+        private int age;
+
+        public User(String username, int age) {
+            this.username = username;
+            this.age = age;
+        }
     }
 
 
